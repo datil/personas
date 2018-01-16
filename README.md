@@ -20,7 +20,7 @@ Librería para validación de números de identificación de personas y compañ�
 Clona el repositorio y listo
 
 ```shell
-git clone https://github.com/datil/personas.git
+$ git clone https://github.com/datil/personas.git
 ```
 
 ### Pruebas
