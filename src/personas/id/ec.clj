@@ -80,4 +80,5 @@
               :public (valid-public-company-tax-id? identification)
               :personal (valid-identity-card? (subs identification 0 10))
               :unknown false)
-    "05" (valid-identity-card? identification)))
+    "05" (valid-identity-card? identification)
+    true))

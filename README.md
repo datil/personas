@@ -1,4 +1,4 @@
-# personas
+# personas [![Build Status](https://travis-ci.org/datil/personas.svg?branch=master)](https://travis-ci.org/datil/personas)
 
 Librería para validación de números de identificación de personas y compañías
 

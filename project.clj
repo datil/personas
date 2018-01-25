@@ -1,4 +1,4 @@
-(defproject co.datil/personas "0.1.0"
+(defproject co.datil/personas "0.1.1"
   :description "Librería para validación de números de identificación de personas y compañías"
   :url "https://developers.datil.co"
   :license {:name "Eclipse Public License"

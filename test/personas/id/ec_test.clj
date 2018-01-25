@@ -61,3 +61,9 @@
                            :country "EC"
                            :type "04"})
          false)))
+
+(deftest unkown-tax-id-type
+  (is (= (id.ec/valid-id? {:identification "xxxxxxxxxxxxxxxxx"
+                           :country "EC"
+                           :type "999"})
+         true)))
