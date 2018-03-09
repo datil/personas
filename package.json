@@ -1,0 +1,34 @@
+{
+  "name": "@datil/personas",
+  "version": "1.0.0",
+  "description": "Utility library for National ID and tax ID validation and more to come",
+  "main": "dist/index.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datil/personas.git"
+  },
+  "keywords": [
+    "validation",
+    "tax",
+    "identification",
+    "ruc",
+    "cedula",
+    "ecuador"
+  ],
+  "author": "Juan Antonio Plaza",
+  "license": "EPL-1.0",
+  "bugs": {
+    "url": "https://github.com/datil/personas/issues"
+  },
+  "homepage": "https://github.com/datil/personas#readmejs",
+  "devDependencies": {
+    "shadow-cljs": "^2.2.0"
+  }
+}

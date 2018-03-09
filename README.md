@@ -5,10 +5,12 @@ Librería para validación de números de identificación de personas y compañ�
 ## Uso
 
 ```clojure
-(require '[personas.api :as personas])
+(ns my.app
+  (:require [personas.api :as personas]
+            [personas.id.ec :as personas-ec]))
 
 (if (personas/valid-id? {:identification "1002304005"
-                         :type "99"
+                         :type personas-ec/id-card-code
                          :country "EC"})
   (print "¡Listo!")
   (print "Por favor escribe un número de cédula válida"))
@@ -33,4 +35,4 @@ $ lein test
 
 Copyright © 2018 Datilmedia S.A.
 
-Distribuido bajo licencia Eclipse Public License versión 1.0 o superior.
+Distribuido bajo licencia [Eclipse Public License](https://github.com/datil/personas/blob/master/LICENSE).
