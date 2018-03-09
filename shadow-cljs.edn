@@ -1,0 +1,18 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src"]
+
+ :dependencies
+ []
+
+ :builds
+ {:web {:target :browser
+        :output-dir "public/js"
+        :asset-path "/js"
+        :modules {:personas {:entries [personas.js]}}}
+  :node {:target :node-library
+         :output-to "dist/index.js"
+         :compiler-options {:optimizations :advanced}
+         :exports {:isIdValid personas.api/isIdValid
+                   :ec personas.id.ec/constants}}}}
+

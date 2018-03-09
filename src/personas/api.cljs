@@ -16,3 +16,9 @@
     "MX" false
     false))
 
+
+;; Aliases for using personas in JS projects
+
+(defn ^:export isIdValid
+  [id]
+  (valid-id? (js->clj id :keywordize-keys true)))
