@@ -1,18 +1,20 @@
 (ns personas.api
   (:require [personas.id.ec :as id.ec]))
 
-(defn valid-id?
+(defmulti valid-id?
   "Returns true if id is a valid id
   id - map containing
       country        - country ISO code
       identification - string representing the ID number
       type           - the code representing the type of ID in that country"
-  [id]
-  (case (:country id)
-    "EC" (id.ec/valid? id)
-    "CO" false
-    "PE" false
-    "CL" false
-    "MX" false
-    false))
+  {}
+  (fn [id]
+    (keyword (clojure.string/lower-case (:country id "")))))
 
+(defmethod valid-id? :ec
+  [id]
+  (id.ec/valid? id))
+
+(defmethod valid-id? :default
+  [id]
+  false)

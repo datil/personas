@@ -72,10 +72,14 @@
 (defn valid-tax-id?
   [{:keys [identification] :as id}]
   (if (and (= (count identification) 13)
-           (not= (subs identification 10 13) "000"))
+           (= (subs identification 10 13) "001"))
     (case (tax-id-type identification)
       :private (valid-private-company-tax-id? identification)
-      :public (valid-public-company-tax-id? identification)
+      ;; That the third digit is 6 and that the last 4 digits are "0001", are no longer
+      ;; a guarantee that the RUC belongs to a state company. So just in case, we
+      ;; check if it is a valid ID card.
+      :public (or (valid-public-company-tax-id? identification)
+                  (valid-identity-card? (subs identification 0 10)))
       :personal (valid-identity-card? (subs identification 0 10))
       :unknown false)
     false))

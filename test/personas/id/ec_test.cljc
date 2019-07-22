@@ -86,3 +86,9 @@
                          :country "EC"
                          :type id-ec/tax-id-code})
          false)))
+
+(deftest personal-company-tax-id-that-looks-like-a-public-company-tax-id
+  (is (= (sut/valid-id? {:identification "0962378600001"
+                         :country "EC"
+                         :type id-ec/tax-id-code})
+         true)))
