@@ -7,8 +7,17 @@
 (def tax-id-code "04")
 (def id-card-code "05")
 
+(defn numeric? [s]
+  #?(:clj (if-let [s (seq s)]
+            (let [s (if (= (first s) \-) (next s) s)
+                  s (drop-while #(Character/isDigit %) s)
+                  s (if (= (first s) \.) (next s) s)
+                  s (drop-while #(Character/isDigit %) s)]
+              (empty? s)))
+     :cljs (and (not-empty s) (not (js/isNaN s)))))
+
 (defn str->int [s]
-  #?(:clj  (java.lang.Integer/parseInt s)
+  #?(:clj  (try (java.lang.Integer/parseInt s) (catch Exception _))
      :cljs (js/parseInt s)))
 
 (defn char->int [c]
@@ -47,7 +56,7 @@
 
 (defn valid-identity-card?
   [id]
-  (if (= (count id) 10)
+  (if (and (numeric? id) (= (count id) 10))
     (let [check-digit (calc-check-digit (subs id 0 9) id-card-coeffs 10 9)
           id-check-digit (str->int (subs id 9 10))]
       (= check-digit id-check-digit))
@@ -71,7 +80,8 @@
 
 (defn valid-tax-id?
   [{:keys [identification] :as id}]
-  (if (and (= (count identification) 13)
+  (if (and (numeric? identification)
+           (= (count identification) 13)
            (= (subs identification 10 13) "001"))
     (case (tax-id-type identification)
       :private (valid-private-company-tax-id? identification)
