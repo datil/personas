@@ -92,3 +92,9 @@
                          :country "EC"
                          :type id-ec/tax-id-code})
          true)))
+
+(deftest invalid-not-numeric-id
+  (is (= (sut/valid-id? {:identification "09623786OO001"
+                         :country "EC"
+                         :type id-ec/tax-id-code})
+         false)))
