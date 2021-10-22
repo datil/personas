@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [1.0.3] - 2021-10-22
+### Fixed
+- Updates Ecuador tax ID validation function. Tax IDs no longer comply with the check
+digit algorithm.
+
+
 ## [1.0.2] - 2019-10-11
 ### Fixed
 - Fixes a bug that caused an Exception to be raised instead of returning false. The bug

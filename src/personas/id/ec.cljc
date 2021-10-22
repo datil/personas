@@ -1,14 +1,12 @@
 (ns personas.id.ec)
 
 (def id-card-coeffs [2 1 2 1 2 1 2 1 2])
-(def private-company-tax-id-coeffs [4 3 2 7 6 5 4 3 2])
-(def public-company-tax-id-coeffs [3 2 7 6 5 4 3 2])
 
 (def tax-id-code "04")
 (def id-card-code "05")
 
 (defn numeric? [s]
-  #?(:clj (if-let [s (seq s)]
+  #?(:clj (when-let [s (seq s)]
             (let [s (if (= (first s) \-) (next s) s)
                   s (drop-while #(Character/isDigit %) s)
                   s (if (= (first s) \.) (next s) s)
@@ -62,37 +60,9 @@
       (= check-digit id-check-digit))
     false))
 
-(defn valid-private-company-tax-id?
-  [tax-id]
-  (let [check-digit (calc-check-digit (subs tax-id 0 9)
-                                      private-company-tax-id-coeffs
-                                      11)
-        id-check-digit (str->int (subs tax-id 9 10))]
-    (= check-digit id-check-digit)))
-
-(defn valid-public-company-tax-id?
-  [tax-id]
-  (let [check-digit (calc-check-digit (subs tax-id 0 8)
-                                      public-company-tax-id-coeffs
-                                      11)
-        nineth-digit (str->int (subs tax-id 8 9))]
-    (= check-digit nineth-digit)))
-
 (defn valid-tax-id?
-  [{:keys [identification] :as id}]
-  (if (and (numeric? identification)
-           (= (count identification) 13)
-           (= (subs identification 10 13) "001"))
-    (case (tax-id-type identification)
-      :private (valid-private-company-tax-id? identification)
-      ;; That the third digit is 6 and that the last 4 digits are "0001", are no longer
-      ;; a guarantee that the RUC belongs to a state company. So just in case, we
-      ;; check if it is a valid ID card.
-      :public (or (valid-public-company-tax-id? identification)
-                  (valid-identity-card? (subs identification 0 10)))
-      :personal (valid-identity-card? (subs identification 0 10))
-      :unknown false)
-    false))
+  [{:keys [identification]}]
+  (and (numeric? identification) (= (count identification) 13)))
 
 (defn valid?
   "Returns true if id is a valid id
